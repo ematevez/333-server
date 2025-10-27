@@ -12,7 +12,8 @@ const asyncHandler = fn => (req, res, next) =>
 router.get(
   "/",
   asyncHandler(async (req, res) => {
-    const students = await Student.find().populate("enrolledCourses").sort({ createdAt: -1 });
+    // const students = await Student.find().populate("enrolledCourses").sort({ createdAt: -1 });
+    const students = await Student.find().sort({ createdAt: -1 });
     res.json(students);
   })
 );
