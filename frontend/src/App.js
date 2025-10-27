@@ -1,3 +1,4 @@
+// App.js
 import { useState, useEffect } from "react";
 import {
   getStudents,
@@ -30,13 +31,21 @@ function App() {
   const [selectedCourse, setSelectedCourse] = useState(null);
 
   const loadStudents = async () => {
-    const res = await getStudents();
-    setStudents(res.data);
+    try {
+      const res = await getStudents();
+      setStudents(res.data);
+    } catch (error) {
+      console.error("Error al cargar estudiantes:", error);
+    }
   };
 
   const loadCourses = async () => {
-    const res = await getCourses();
-    setCourses(res.data);
+    try {
+      const res = await getCourses();
+      setCourses(res.data);
+    } catch (error) {
+      console.error("Error al cargar cursos:", error);
+    }
   };
 
   useEffect(() => {
@@ -53,31 +62,60 @@ function App() {
 
   // --- CRUD Estudiantes ---
   const handleSaveStudent = async (data) => {
-    selectedStudent
-      ? await updateStudent(selectedStudent._id, data)
-      : await createStudent(data);
-    loadStudents();
+    try {
+      if (selectedStudent) {
+        await updateStudent(selectedStudent._id, data);
+      } else {
+        await createStudent(data);
+      }
+      // Si todo fue bien, recargamos la lista y limpiamos la selección
+      loadStudents();
+      setSelectedStudent(null);
+    } catch (error) {
+      // Si algo falla, lanzamos el error para que el StudentForm lo capture y muestre
+      console.error("Error en App.js al guardar estudiante:", error);
+      throw error;
+    }
   };
 
   const handleDeleteStudent = async (id) => {
     if (window.confirm("¿Eliminar este estudiante?")) {
-      await deleteStudent(id);
-      loadStudents();
+      try {
+        await deleteStudent(id);
+        loadStudents();
+      } catch (error) {
+        console.error("Error al eliminar estudiante:", error);
+        alert("No se pudo eliminar el estudiante.");
+      }
     }
   };
 
   // --- CRUD Cursos ---
   const handleSaveCourse = async (data) => {
-    selectedCourse
-      ? await updateCourse(selectedCourse._id, data)
-      : await createCourse(data);
-    loadCourses();
+    try {
+      if (selectedCourse) {
+        await updateCourse(selectedCourse._id, data);
+      } else {
+        await createCourse(data);
+      }
+      // Si todo fue bien, recargamos la lista y limpiamos la selección
+      loadCourses();
+      setSelectedCourse(null);
+    } catch (error) {
+      console.error("Error en App.js al guardar curso:", error);
+      throw error;
+    }
   };
 
   const handleDeleteCourse = async (id) => {
     if (window.confirm("¿Eliminar este curso?")) {
-      await deleteCourse(id);
-      loadCourses();
+      try {
+        await deleteCourse(id);
+        loadCourses();
+      } catch (error) {
+        console.error("Error al eliminar curso:", error);
+        alert("No se pudo eliminar el curso.");
+      }
     }
   };
 
