@@ -17,6 +17,9 @@ import StudentList from "./components/StudentList";
 import CourseForm from "./components/CourseForm";
 import CourseList from "./components/CourseList";
 
+import axios from "axios";
+import { API } from "./services/api";
+
 function App() {
   // --- Estudiantes ---
   const [students, setStudents] = useState([]);
@@ -37,6 +40,13 @@ function App() {
   };
 
   useEffect(() => {
+    // 🔹 Ping inicial para “despertar” el servidor Render
+    axios
+      .get(API.students)
+      .then(() => console.log("Servidor Render activo ✅"))
+      .catch(() => console.log("Intentando conectar con el servidor..."));
+
+    // 🔹 Cargar datos cuando el servidor responde
     loadStudents();
     loadCourses();
   }, []);

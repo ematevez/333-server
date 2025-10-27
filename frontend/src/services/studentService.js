@@ -1,9 +1,8 @@
+// src/services/studentService.js
 import axios from "axios";
+import { API } from "./api";
 
-// const API_URL = "http://localhost:4000/api/students";
-const API_URL = "https://three32-server-8sz2.onrender.com/api/students";
-
-export const getStudents = () => axios.get(API_URL);
-export const createStudent = (data) => axios.post(API_URL, data);
-export const updateStudent = (id, data) => axios.put(`${API_URL}/${id}`, data);
-export const deleteStudent = (id) => axios.delete(`${API_URL}/${id}`);
+export const getStudents = () => axios.get(API.students);
+export const createStudent = (data) => axios.post(API.students, data);
+export const updateStudent = (id, data) => axios.put(`${API.students}/${id}`, data);
+export const deleteStudent = (id) => axios.delete(`${API.students}/${id}`);
