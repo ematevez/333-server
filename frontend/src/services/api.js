@@ -1,4 +1,4 @@
-const BASE_URL = import.meta.env.VITE_API_URL || "https://three32-server.onrender.com";
+const BASE_URL = "https://three32-server-8sz2.onrender.com";
 
 export const API = {
   students: `${BASE_URL}/api/students`,
