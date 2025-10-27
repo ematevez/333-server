@@ -13,18 +13,27 @@ const StudentForm = ({ onSave, selected, clearSelection }) => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    setErrors([]);
+  e.preventDefault();
+  setErrors([]);
 
-    if (!form.name || !form.email) {
-      setErrors(["Todos los campos son obligatorios"]);
-      return;
-    }
+  // Validaciones básicas
+  if (!form.name.trim() || !form.email.trim() || !form.age) {
+    setErrors(["Todos los campos son obligatorios"]);
+    return;
+  }
 
-    onSave(form);
-    setForm({ name: "", email: "", age: "" });
-    clearSelection();
+  const formattedData = {
+    name: form.name.trim(),
+    email: form.email.trim(),
+    age: Number(form.age), // 🔥 convierte a número
   };
+
+  console.log("📤 Enviando estudiante:", formattedData);
+  onSave(formattedData);
+  setForm({ name: "", email: "", age: "" });
+  clearSelection();
+};
+
 
   return (
     <form onSubmit={handleSubmit}>
