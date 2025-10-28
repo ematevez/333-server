@@ -1,6 +1,6 @@
 # 332-server
 
-Guía Completa de Deploy — Proyecto 332 (Backend + Frontend)
+Guía Completa de Deploy — Proyecto 333 (Backend + Frontend)
 Estructura del proyecto
 333-server/         ← carpeta del backend (Node + Express + MongoDB)
 333-client/         ← carpeta del frontend (React)
